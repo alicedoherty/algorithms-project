@@ -19,20 +19,63 @@
 */  
 
 
-import javax.swing.*;
+import java.util.Scanner;
 
 public class BusManagementSystem {
 
-	public static void main(String[] args) {
-	    JFrame frame = new JFrame("My First GUI");
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setSize(300,300);
-	    JButton button1 = new JButton("Button 1");
-	    JButton button2 = new JButton("Button 2");
-	    frame.getContentPane().add(button1);
-	    frame.getContentPane().add(button2);
-	    frame.setVisible(true);
-
-	}
+//	private JFrame mainFrame;
+//	   private JLabel headerLabel;
+//	   private JLabel statusLabel;
+//	   private JPanel controlPanel;
+//
+//	   public BusManagementSystem(){
+//	      prepareGUI();
+//	   }
+//	   
+	   public static void main(String[] args){
+		   Scanner input = new Scanner(System.in);
+		   boolean validInput = false;
+		   
+		   while(!validInput) {
+			   System.out.println("Choose which feature you want (0, 1, 2 or 3):\n"
+			   		+ "0: Quit\n"
+			   		+ "1: Shortest path between two bus stops\n"
+			   		+ "2: Search for a bus stop\n"
+			   		+ "3: Search for trips within a given time");
+			   
+			   if(input.hasNextInt()) {
+				   int userChoice = input.nextInt();
+				   switch(userChoice) {
+				   		case 0:
+				   			validInput = true;
+				   			System.out.println("case 0");
+				   			break;
+				   		case 1:
+				   			validInput = true;
+				   			System.out.println("case 1");
+				   			break;
+				   		case 2:
+				   			validInput = true;
+				   			System.out.println("case 2");
+				   			break;
+				   		case 3:
+				   			validInput = true;
+				   			System.out.println("case 3");
+				   			break;
+				   		default:
+				   			System.out.println("Choice not valid.");	
+				   
+				   }
+				   
+			   }
+			   
+			   else {
+				   System.out.println("Please only enter numbers.");
+				   input.next();
+			   }
+			   
+		   }
+		        
+	   }	   
 
 }
