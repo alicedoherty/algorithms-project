@@ -20,7 +20,12 @@
 
 ### Devin
 
-- [ ] Ternary search tree (part 2)
+- [x] Ternary search tree class (part 2)
+- [x] Adapt TST to get list of possible IDs
+- [x] Process input file to build TST and HashMap
+- [ ] Handle edge cases
+- [ ] Add comments
+
 
 ### Aoife
 
