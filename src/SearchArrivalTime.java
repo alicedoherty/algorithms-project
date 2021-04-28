@@ -7,7 +7,7 @@ public class SearchArrivalTime {
 	
 	public static ArrayList<String> getTrips(String item, ArrayList<String> list)    {
 		ArrayList<String> trips = new ArrayList<String>();
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		//linear search
 		for (int i = 0; i<list.size(); i++) {
 			String current = list.get(i);
@@ -27,7 +27,7 @@ public class SearchArrivalTime {
 	
 	public static ArrayList<String> allTrips(){
 		ArrayList<String> allTrips = new ArrayList<String>();
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		String maxTime = "24:00:00";
 		try{
 			Date max = sdf.parse(maxTime);
