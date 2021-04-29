@@ -17,8 +17,9 @@
 
 ### Stephen
 - [ ] Shortest paths (part 1)
-- [ ] Populate graph
-- [ ] Get input from user
+- [x] Populate graph
+- [x] Get input from user
+- [ ] Handle invalid user input
 
 ### Devin
 
