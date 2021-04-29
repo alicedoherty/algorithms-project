@@ -83,9 +83,9 @@ public class BusStopSearch {
 		}
 	}
 	
-	public static void main(String[] args) {
-		BusStopSearch bss = new BusStopSearch("stops.txt");
-		bss.displayStopDetails ("NB SHAUGHNESSY ST FS MCALLISTER AVE");
-	}
+//	public static void main(String[] args) {
+//		BusStopSearch bss = new BusStopSearch("stops.txt");
+//		bss.displayStopDetails ("NB SHAUGHNESSY ST FS MCALLISTER AVE");
+//	}
 
 }

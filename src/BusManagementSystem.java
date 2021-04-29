@@ -50,7 +50,7 @@ public class BusManagementSystem {
 				   			break;
 				   		case 2:
 				   			validInput = true;
-				   			System.out.println("case 2");
+				   			callBusStopSearch();
 				   			break;
 				   		case 3:
 				   			validInput = true;
@@ -94,6 +94,16 @@ public class BusManagementSystem {
 			   
 		   }
 		   userInput.close();
+	   }
+	   
+	   public static void callBusStopSearch() {
+		   Scanner userInput = new Scanner(System.in);
+		   
+		   System.out.println("Enter the stop you are looking for:\n");
+		   String inputStop = userInput.nextLine();
+			   
+		   BusStopSearch bss = new BusStopSearch("stops.txt");
+		   bss.displayStopDetails(inputStop);
 	   }
 
 }
