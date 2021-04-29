@@ -88,22 +88,4 @@ public class TernarySearchTree<T> {
         else                            x.val   = val;
         return x;
     }
-    
-    public void displayTST() {
-    	displayTST(root);
-    }
-    
-    public void displayTST (TernaryNode<T> x) {
-    	try {
-    		if (x != null) {
-    			displayTST(x.left);
-    			displayTST(x.middle);
-    			displayTST(x.right);
-    		}
-    	}
-    	
-    	catch(Exception e) {
-    		e.printStackTrace();
-    	}
-    }
 }
