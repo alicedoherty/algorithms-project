@@ -116,7 +116,6 @@ public class BusStopSearch {
 		}
 	}
 	
-<<<<<<< HEAD
 	public boolean endingsMatch (String stopName) {
 		String[] stopWords = stopName.split(" ");
 		for (int i = 0; i < inputKeywords.size(); i++) {
@@ -130,11 +129,5 @@ public class BusStopSearch {
 		BusStopSearch bss = new BusStopSearch("stops.txt");
 		bss.displayStopDetails ("NB TAMARACK LANE FS 1");
 	}
-=======
-//	public static void main(String[] args) {
-//		BusStopSearch bss = new BusStopSearch("stops.txt");
-//		bss.displayStopDetails ("NB SHAUGHNESSY ST FS MCALLISTER AVE");
-//	}
->>>>>>> 8f776be2cf24fe00b557a4a0b36cea023ae92176
 
 }
