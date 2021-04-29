@@ -1,11 +1,14 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TernarySearchTree<T> {
 
 	private TernaryNode<T> root;
 	private List<T> possibleVals;
-
+	public static final String[] STOP_KEYWORDS = new String[] {"FLAGSTOP", "WB", "NB", "SB", "EB"};
+	public List<String> inputKeywords; 
+	
 	public int size() {
 		return root.size();
 	}
@@ -27,12 +30,13 @@ public class TernarySearchTree<T> {
 			throw new IllegalArgumentException("Inputted key must have length >= 1");
 		}
 
+		
 		TernaryNode<T> x = get(root, key, 0);
-
 		if (x == null) return null;
 		
 		possibleVals = new ArrayList<T>();
-		findChildVals(x);
+		if (x.middle.val != null) possibleVals.add(x.val);
+		findChildVals(x.middle);
 		
 		return possibleVals;
 	}
@@ -55,8 +59,11 @@ public class TernarySearchTree<T> {
 			findChildVals(x.left);
 			findChildVals(x.middle);
 			findChildVals(x.right);
-			possibleVals.add(x.val);
+			
+			if (x.val != null) possibleVals.add(x.val);
 		}
+		
+
 	}
 	
     public void put(String key, T val) {
@@ -89,10 +96,6 @@ public class TernarySearchTree<T> {
     public void displayTST (TernaryNode<T> x) {
     	try {
     		if (x != null) {
-    			System.out.println("Character: " + x.character + 
-    					", x.left char:" + x.left.character + 
-    					", x.middle char: " + x.middle.character +
-    					", x.right char: " + x.right.character);
     			displayTST(x.left);
     			displayTST(x.middle);
     			displayTST(x.right);
