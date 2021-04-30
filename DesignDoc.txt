@@ -7,3 +7,14 @@ Stephen - Shortest Paths
 Devin - TST
 
 Aoife - Sorting/Searching
+A linear search was used to search for given arrival time from the input files and return matching trips. 
+Although binary search has a better asymptotic time complexity than linear search, which has a worst case 
+time complexity of O(N), it requires the data to already be sorted and requires random-access capability.
+Linear search does not have these requirements and therefore was the best suited algorithm to use given 
+the data provided.
+
+To sort the matching searches by trip ID quicksort was used, which has a worst case performance of O(N^2).
+However, quicksort is the most efficient choice when considering its average case compared to any other 
+sort algorithm, such as mergesort. Quicksort also requires little space as compared to mergesort, which 
+requires a temporary array to merge the sorted arrays. Therefore, quicksort was the best choice to use 
+when sorting the given data by trip ID.
