@@ -200,58 +200,57 @@ public class Shortest_Path_Between_2_Stops {
 		return graph;
 	}
 
-	public static void main(String[] args) {
+	public static void getShortestPath() {
 		String filename = "stops.txt";
-		// populate graph
-		Shortest_Path_Between_2_Stops sp2stops = new Shortest_Path_Between_2_Stops(filename); 
-		// NEED TO ACCOUNT FOR INVALID USER INPUT
+		Shortest_Path_Between_2_Stops sp = new Shortest_Path_Between_2_Stops(filename); 
+		
+		
+		String getSourceString = "Please enter the stop_id of the source stop: ";
+		String getDestinationString = "Please enter the stop_id of the destination stop: ";
+		
+		int sourceStop = getUserInput(sp, getSourceString);
+		int destinationStop = getUserInput(sp, getDestinationString);
+		
+		int sourceStopIndex = sp.map.get(sourceStop);
+		int destinationStopIndex = sp.map.get(destinationStop);
+		
+		DijkstraSP dijkstraGraph = new DijkstraSP(sp.graph, sourceStopIndex);	
+		
+		if(dijkstraGraph.hasPathTo(destinationStopIndex)) {
+			double pathLength = dijkstraGraph.distTo(destinationStopIndex);
+			System.out.println("Cost: " + pathLength);
+			
+		}
+		else {
+			System.out.println("There's no path from stop \"" + sourceStop + "\" to stop \"" + destinationStop + "\"");
+		}
+	}
+	
+	
+	public static int getUserInput(Shortest_Path_Between_2_Stops sp, String getInputString) {
 		Scanner scanner = new Scanner(System.in);
-		boolean valid_input = false;
-		System.out.println("Please enter the stop_id of the source stop: ");
-		int source_stop = -5;
-		if(scanner.hasNextInt()) {
-			source_stop = scanner.nextInt();
-		}
-		if(sp2stops.map.containsKey(source_stop)) {
-			valid_input = true;
-		}	
-		while(valid_input==false) {
-			System.out.println("Invalid input. Please try again: ");
+		boolean valid = false;
+		int stop = -1;
+		
+		while(!valid) {
+			System.out.println(getInputString);
+			
 			if(scanner.hasNextInt()) {
-				source_stop = scanner.nextInt();
-				if(sp2stops.map.containsKey(source_stop)) {
-					valid_input = true;
+				stop = scanner.nextInt();
+				
+				if(sp.map.containsKey(stop)) {
+					valid = true;
+				}
+				
+				else {
+					System.out.println("There is no stop with the id: \"" + stop + "\" on our system.");
 				}
 			}
-		}
-		int source_stop_index = sp2stops.map.get(source_stop);
-		DijkstraSP shortest_path = new DijkstraSP(sp2stops.graph, source_stop_index);
-		System.out.println("Please enter the stop_id of the destination stop: ");
-		int destination_stop=-5;
-		if(scanner.hasNextInt()) {
-			destination_stop = scanner.nextInt();
-		}
-		valid_input = false;
-		if(sp2stops.map.containsKey(destination_stop)) {
-			valid_input = true;
-		}	
-		while(valid_input==false) {
-			System.out.println("Invalid input. Please try again: ");
-			if(scanner.hasNextInt()) {
-				destination_stop = scanner.nextInt();
-				if(sp2stops.map.containsKey(destination_stop)) {
-					valid_input = true;
-				}
+			else {
+				System.out.println("Invalid input. Please only enter integers.");
+				scanner.nextLine();				
 			}
 		}
-		int destination_stop_index = sp2stops.map.get(destination_stop);
-		double path_length = shortest_path.distTo(destination_stop_index); 		// find shortest path between the above 2 stops
-		System.out.println("Cost: "+path_length);
-		//		 return list of stops
-		//		 return the associated cost
-
-
-		// 1888
-		// 11259
+		return stop;
 	}
 }
