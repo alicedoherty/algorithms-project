@@ -74,11 +74,12 @@ public class BusStopSearch {
 		return stopDetails;
 	}
 
-	public void displayStopDetails (String stopName) {
+	public boolean displayStopDetails (String stopName) {
 		List<String[]> stopDetails = getStopDetails(stopName);
 		
 		if (stopDetails == null || stopDetails.size() == 0) {
 			System.out.println("No stops match this search criteria");
+			return false;
 		}
 		
 		else {
@@ -97,6 +98,7 @@ public class BusStopSearch {
 				System.out.println();
 			}
 		}
+		return true;
 	}
 	
 	public boolean endingsMatch (String stopName) {
@@ -106,11 +108,6 @@ public class BusStopSearch {
 		}
 		
 		return true;
-	}
-	
-	public static void main(String[] args) {
-		BusStopSearch bss = new BusStopSearch("stops.txt");
-		bss.displayStopDetails ("SB $190A ST NS 1");
 	}
 
 }

@@ -78,12 +78,17 @@ public class BusManagementSystem {
 	   
 	   public static void callBusStopSearch() {
 		   Scanner userInput = new Scanner(System.in);
-		   
-		   System.out.println("Enter the stop you are looking for:\n");
-		   String inputStop = userInput.nextLine();
-			   
 		   BusStopSearch bss = new BusStopSearch("stops.txt");
-		   bss.displayStopDetails(inputStop.toUpperCase());
+		   boolean validSearch = false;
+		   
+		   while(!validSearch) {
+			   System.out.println("Enter the stop you are looking for:\n");
+			   String inputStop = userInput.nextLine();
+			   if(bss.displayStopDetails(inputStop.toUpperCase()))
+				   validSearch = true;
+			   
+		   }
+		   
 		   userInput.close();
 	   }
 	   
