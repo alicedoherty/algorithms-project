@@ -8,8 +8,8 @@ Each group member submit same .zip file including:
 
 # To Do
 
-- [ ] 2-page design document
-- [ ] 5min demo recording
+- [x] 2-page design document
+- [x] 5min demo recording
 - [x] Readme.txt
 
 ### Stephen
@@ -30,9 +30,9 @@ Each group member submit same .zip file including:
 ### Aoife
 
 - [x] Sorting/search algorithm (part 3)
-- [ ] Handle edge cases
+- [x] Handle edge cases
 
 ### Alice
-- [ ] Connect interface to part 1
+- [x] Connect interface to part 1
 - [x] Connect interface to part 2
 - [x] Connect interface to part 3
