@@ -13,7 +13,7 @@ Each group member submit same .zip file including:
 - [x] Readme.txt
 
 ### Stephen
-- [ ] Shortest paths (part 1)
+- [x] Shortest paths (part 1)
 - [x] Populate graph
 - [x] Get input from user
 - [x] Handle invalid user input
