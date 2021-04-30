@@ -16,7 +16,7 @@ Each group member submit same .zip file including:
 - [ ] Shortest paths (part 1)
 - [x] Populate graph
 - [x] Get input from user
-- [ ] Handle invalid user input
+- [x] Handle invalid user input
 
 ### Devin
 
