@@ -9,62 +9,48 @@ import java.util.List;
 public class BusStopSearch {
 
 	public static final String[] STOP_KEYWORDS = new String[] {"FLAGSTOP", "WB", "NB", "SB", "EB"};
-	public static final String[] BUS_STOP_VARIABLE_NAMES = new String[] {"Stop code", "Stop name", "Stop description", "Stop latitude", "Stop longitude", "Zone ID", "Stop URL", "Location type", "Parent station"};
-	public static final int NUM_STOP_VARIABLES = 9;
-	public static final int STOP_NAME_IDX = 1;
+	public static final String[] BUS_STOP_VARIABLE_NAMES = new String[] {"Stop ID", "Stop code", "Stop name", "Stop description", "Stop latitude", "Stop longitude", "Zone ID", "Stop URL", "Location type", "Parent station"};
+	public static final int STOP_NAME_IDX = 2;
 	
-	HashMap<Integer, String[]> busStops;
-	TernarySearchTree<Integer> TST;
+	TernarySearchTree<String[]> TST;
 	List<String> inputKeywords;
 	
 	public BusStopSearch(String fname) {
 		
-		busStops = new HashMap<Integer, String[]>(); 
-		TST = new TernarySearchTree<Integer>();
+		TST = new TernarySearchTree<String[]>();
 		
-		Scanner scanner;
 		try {
-			scanner = new Scanner(new File(fname));
+			Scanner scanner = new Scanner(new File(fname));
 			scanner.nextLine(); // Ignore first line with headings
 			
 			while (scanner.hasNextLine()) {
 				String stop = scanner.nextLine();
-				String[] stopEntries = stop.split(",");
+				String[] stopDetails = stop.split(",");
 				
-				Integer stopId = Integer.valueOf(stopEntries[0]);
-				String[] stopDetails = Arrays.copyOfRange(stopEntries, 1, stopEntries.length);
+				String stopName = stopDetails[STOP_NAME_IDX];
 				
-				busStops.put(stopId, stopDetails);
-				
-				String adjustedStopName = getAdjustedStopName(stopDetails[STOP_NAME_IDX]);
-				TST.put(adjustedStopName, stopId);
+				String adjustedStopName = getAdjustedStopName(stopName, false);
+				TST.put(adjustedStopName, stopDetails);
 				
 			}
-		} 
+		}
+		
 		catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw new IllegalArgumentException("Inputted filename doesn't exist.");
 		}
 	}
 
-	public String getAdjustedStopName (String stopName) {
-		String[] stopWords = stopName.split(" ");
-		while (Arrays.asList(STOP_KEYWORDS).contains(stopWords[0])) {
-			String firstWord = stopWords[0];
-			stopName = stopName.replace(firstWord, "").trim();
-			stopName = stopName + " " + firstWord;
-			stopWords = stopName.split(" ");
-		}
-		
-		return stopName;
-	}
-	
-	public String addEndingsToList (String stopName) {
+	public String getAdjustedStopName (String stopName, boolean isSearch) {
 		String[] stopWords = stopName.split(" ");
 		inputKeywords = new ArrayList<String>();
+
 		while (Arrays.asList(STOP_KEYWORDS).contains(stopWords[0])) {
 			String firstWord = stopWords[0];
 			stopName = stopName.replace(firstWord, "").trim();
-			inputKeywords.add(firstWord);
+			
+			if (isSearch) inputKeywords.add(firstWord);
+			else stopName = stopName + " " + firstWord;
+			
 			stopWords = stopName.split(" ");
 		}
 		
@@ -72,21 +58,17 @@ public class BusStopSearch {
 	}
 	
 	public List<String[]> getStopDetails (String stopName) {
-		String adjustedStopName = addEndingsToList(stopName);
-		List<Integer> stopIds = TST.get(adjustedStopName);
+		String adjustedStopName = getAdjustedStopName(stopName, true);
+		List<String[]> stopDetails = TST.get(adjustedStopName);
 		
-		if (stopIds == null || stopIds.size() == 0) return null;
+		if (stopDetails == null || stopDetails.size() == 0) return null;
 		
-		List<String[]> stopDetails = new ArrayList<String[]>();
-
-		int stopId;
-		
-		for (int i = 0; i < stopIds.size(); i++) {
-			
-			stopId = stopIds.get(i);
-			if (endingsMatch(busStops.get(stopId)[STOP_NAME_IDX])) {
-				stopDetails.add(busStops.get(stopId));
-			}
+		String curStopName;
+		int i = 0;
+		while (i < stopDetails.size()) {
+			curStopName = stopDetails.get(i)[STOP_NAME_IDX];
+			if (!endingsMatch(curStopName)) stopDetails.remove(i);
+			else i++;
 		}
 		
 		return stopDetails;
@@ -110,6 +92,7 @@ public class BusStopSearch {
 				for (int j = 0; j < busStop.length; j++) {
 					stopOutput += (BUS_STOP_VARIABLE_NAMES[j] + ": " + (!busStop[j].replaceAll(" ", "").equals("") ? busStop[j] : "unknown") + ", ");
 				}
+				
 				System.out.println(stopOutput.substring(0, stopOutput.length()-2));
 				System.out.println();
 			}
@@ -127,7 +110,7 @@ public class BusStopSearch {
 	
 	public static void main(String[] args) {
 		BusStopSearch bss = new BusStopSearch("stops.txt");
-		bss.displayStopDetails ("NB TAMARACK LANE FS 1");
+		bss.displayStopDetails ("SB $190A ST NS 1");
 	}
 
 }

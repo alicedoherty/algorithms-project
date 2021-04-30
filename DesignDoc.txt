@@ -5,6 +5,13 @@ justifying them based on specific space/time trade-offs between alternatives you
 Stephen - Shortest Paths
 
 Devin - TST
+A Ternary Search Tree (TST) was used to search for bus stop information, as detailed in the requirements. Our program used each bus stop's name as a key and split the bus stop's data into a string array, to be used as the value. Insertion into a TST has a worst-case time complexity of O(H) and an average-case time complexity of O(log H), where H is the height of our tree.
+
+It was necessary to modify the search operation, as we needed to return the value of the node associated with the key and also the values associated with all of its child nodes. To accomplish this, we recursively traversed each child node. During traversal, if the current node was not null, its value would be added to a list containing all possible values and its children would be traversed. Traversal had a worst-case time complexity of O(N). Similar to insertion, search also has a worst-case time complexity of O(H) and an average-case time complexity of O(log H).
+
+The primary advantage of a TST over R-way tries and other alternatives is its space efficiency. Whereas an R-way trie has R null links for each leaf, TSTs only haev 3 null links for each leaf. TSTs are also as fast as hashing when dealing with string keys, while also being space efficient. As such, TSTs are an excellent option for these dictionary implementations, due to their superior space efficiency.
+
+As part of the requirements, we had to move certain keywords from the start to the end of the stop names. When inserting data into the TST, a loop moved the first word to the end of the string, until the first word was not a keyword. As such, if a stop's name was six words long and contained one keyword, that keyword would become the sixth word in the sequence. However, if the same method was applied to a query containing the first three words of the stop's name, the keyword would be the third word in the sequence and no match would be found. To fix this, we instead deleted keywords from the inputted string during search and added them to an arraylist. After our TST returned all possible bus stops, the keywords of these stop names were compared against the values in this arraylist. If they matched, the stop would be included in the output.
 
 Aoife - Sorting/Searching
 A linear search was used to search for given arrival time from the input files and return matching trips. 
