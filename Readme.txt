@@ -2,6 +2,7 @@ Link to GitHub repository:
 https://github.com/alicedoherty/algorithms-project
 
 Group Members:
+
 Stephen
 - Worked on finding the shortest paths between two bus stops (part 1)
 - Contributed to design document
@@ -12,9 +13,9 @@ Devin
 
 Aoife
 - Worked on searching for all trips with a given arrival time (part 3)
-- Contributed to design doc
+- Contributed to design document
 
 Alice
-- Worked on the front interface (command line)
+- Connecting front interface to each of the functionalities
 - Taking in user input and error checking
 - Recorded demo video
