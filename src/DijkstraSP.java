@@ -63,4 +63,29 @@ public class DijkstraSP {
 	public boolean hasPathTo(int v) {
 		return distTo[v] < Double.POSITIVE_INFINITY;
 	}
+	
+    /**
+     * Returns a shortest path from the source vertex {@code s} to vertex {@code v}.
+     *
+     * @param  v the destination vertex
+     * @return a shortest path from the source vertex {@code s} to vertex {@code v}
+     *         as an iterable of edges, and {@code null} if no such path
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
+     */
+    public Iterable<DirectedEdge> pathTo(int v) {
+        validateVertex(v);
+        if (!hasPathTo(v)) return null;
+        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
+            path.push(e);
+        }
+        return path;
+    }
+    
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        int V = distTo.length;
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
 }

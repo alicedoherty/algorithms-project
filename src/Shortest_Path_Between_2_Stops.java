@@ -218,7 +218,13 @@ public class Shortest_Path_Between_2_Stops {
 		
 		if(dijkstraGraph.hasPathTo(destinationStopIndex)) {
 			double pathLength = dijkstraGraph.distTo(destinationStopIndex);
-			System.out.println("Cost: " + pathLength);
+			System.out.println("Time (cost): " + pathLength);
+			
+			Iterable<DirectedEdge> stopList = dijkstraGraph.pathTo(destinationStopIndex);
+			System.out.println("List of stops en route (and associated costs):");
+			for(DirectedEdge stop: stopList) {
+				System.out.println("Stop ID: " + stop.to() + "\t Time (from prev): " + stop.weight());
+			}
 			
 		}
 		else {
