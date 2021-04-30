@@ -122,7 +122,7 @@ public class ShortestPathBetween2Stops {
 		return graph;
 	}
 
-	public static void getShortestPath() {
+	public static boolean getShortestPath() {
 		String filename = "stops.txt";
 		ShortestPathBetween2Stops sp = new ShortestPathBetween2Stops(filename); 
 		
@@ -147,11 +147,12 @@ public class ShortestPathBetween2Stops {
 			for(DirectedEdge stop: stopList) {
 				System.out.println("Stop ID: " + stop.to() + "\t Cost (from prev): " + stop.weight());
 			}
-			
+			return true;
 		}
 		else {
 			System.out.println("There's no path from stop \"" + sourceStop + "\" to stop \"" + destinationStop + "\"");
 		}
+		return false;
 	}
 	
 	

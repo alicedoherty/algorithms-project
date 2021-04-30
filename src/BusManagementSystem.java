@@ -93,7 +93,14 @@ public class BusManagementSystem {
 	   }
 	   
 	   public static void callGetShortestPath() {
-		   ShortestPathBetween2Stops.getShortestPath();
+		   boolean validPath = false;
+		   
+		   while(!validPath) {
+			   if(ShortestPathBetween2Stops.getShortestPath()) {
+				   validPath = true;
+			   }
+		   }
+		   
 		   
 	   }
 
