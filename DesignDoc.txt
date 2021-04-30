@@ -3,6 +3,14 @@ A document explaining the design decisions
 justifying them based on specific space/time trade-offs between alternatives you have considered.
 
 Stephen - Shortest Paths
+Dijkstra's shortest path algorithm was used to find the shortest path between 2 bus stops as input by the user. The A* shortest path algorithm was considered since this algorithm is effective for single pair shortest path, however, finding an accurate heuristic proved to be problematic, which is needed for the A* approach. Since this assignment involves no negative weights, and possibly involves cycles, Dijkstra's shortest path algorithm seemed most suitable to implement.
+The worst case asymptotic running time of Dijkstra is O(ElogV), with extra space of V being used, where E is the number of edges in the graph and V is the number of vertices in the graph. Bellman-Ford was another option, however this algorithm has a worst-case asymptotic running time of O(EV), which is slower than Dijkstra's O(ElogV). Bellman-Ford's worst-case extra space requirement is the same as Dijkstra's, with V, ultimately proving Dijkstra to be superior in terms of efficiency.
+
+In order to return the list of stops en route as well as the associated "cost", a Stack was used.
+
+Originally, the stop_id of each bus stop was added as the vertex in the graph, however, this resulted in an array index out of bounds exception for any stop_id that was greater than 8756 (the total number of stops). To resolve this issue, a HashMap was implemented, which uses the stop_id as the key, and the associated index for each value.
+The extra space requirement for the HashMap was O(E), where E is the number of edges in the graph.
+
 
 Devin - TST
 A Ternary Search Tree (TST) was used to search for bus stop information, as detailed in the requirements. Our program used each bus stop's name as a key and split the bus stop's data into a string array, to be used as the value. Insertion into a TST has a worst-case time complexity of O(H) and an average-case time complexity of O(log H), where H is the height of our tree.
