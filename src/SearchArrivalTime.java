@@ -78,7 +78,7 @@ public class SearchArrivalTime {
 	    return sorted;
 	}
 	
-	public static void getResults(String searchItem){
+	public static boolean getResults(String searchItem){
 		ArrayList<String> list = allTrips();
 		ArrayList<String> results = getTrips(searchItem, list);
 		results = quickSort(results);
@@ -90,17 +90,10 @@ public class SearchArrivalTime {
 		}
 		else {
 			System.out.println("There are no trips that match your search.");
+			return false;
 		}
+		return true;
 	}
-	
-    //main for testing 
-	// public static void main(String[] args) {
-	// 	System.out.println("Enter arrival time (hh:mm:ss)");
-	// 	Scanner input = new Scanner( System.in );
-	// 	String item = input.next();
-	// 	getResults(item);
-	// }
-
 }
 
 

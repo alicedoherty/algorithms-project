@@ -65,8 +65,8 @@ public class BusManagementSystem {
 			   
 			   try {
 				   timeFormat.parse(inputTime);
-				   validInput = true;
-				   SearchArrivalTime.getResults(inputTime);
+				   if(SearchArrivalTime.getResults(inputTime))
+					   validInput = true;
 			   } catch(ParseException e) {
 				   System.out.println("\"" + inputTime + "\" is not in a valid time format. \n");
 			   }
