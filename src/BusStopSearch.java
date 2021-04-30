@@ -23,11 +23,12 @@ public class BusStopSearch {
 	TernarySearchTree<String[]> TST;
 	List<String> inputKeywords;
 	
-    /*
+	/*
 	 * Constructs a TST based on the data in the file at the inputted filepath.
 	 * @param key fname the name of the file
 	 * @throws IllegalArgumentException if the inputted file is not found 
 	 */
+	
 	public BusStopSearch(String fname) {
 		
 		TST = new TernarySearchTree<String[]>();
@@ -52,13 +53,14 @@ public class BusStopSearch {
 			throw new IllegalArgumentException("Inputted filename doesn't exist.");
 		}
 	}
-
-    /*
+	
+	/*
 	 * Adjusts the inputted string to remove or move certain keywords as necessary
 	 * @param stopName the name of the stop
 	 * @param isSearch is the returned string being used in a search or not
 	 * @return the string with the keywords in the appropriate place
 	 */
+
 	public String getAdjustedStopName (String stopName, boolean isSearch) {
 		String[] stopWords = stopName.split(" ");
 		inputKeywords = new ArrayList<String>();
@@ -76,60 +78,72 @@ public class BusStopSearch {
 		return stopName;
 	}
 	
-    /*
+	/*
 	 * Finds the details for each bus stop which matches the search query
 	 * @param stopName the name of the stop
 	 * @return a list of string arrays containing data about each bus stop 
 	 */
 	public List<String[]> getStopDetails (String stopName) {
-		String adjustedStopName = getAdjustedStopName(stopName, true);
-		List<String[]> stopDetails = TST.get(adjustedStopName);
 		
-		if (stopDetails == null || stopDetails.size() == 0) return null;
-		
-		String curStopName;
-		int i = 0;
-		while (i < stopDetails.size()) {
-			curStopName = stopDetails.get(i)[STOP_NAME_IDX];
-			if (!endingsMatch(curStopName)) stopDetails.remove(i);
-			else i++;
-		}
-		
-		return stopDetails;
-	}
-
-    /*
-	 * Outputs details to console about each bus stop matching the search query
-	 * @param stopName the name of the stop
-	 */
-	public boolean displayStopDetails (String stopName) {
-		List<String[]> stopDetails = getStopDetails(stopName);
-		
-		if (stopDetails == null || stopDetails.size() == 0) {
-			System.out.println("No stops match this search criteria");
-			return false;
+		if (stopName.replaceAll(" ", "").equals("")) {
+			return null;
 		}
 		
 		else {
-		
-			for (int i = 0; i < stopDetails.size(); i++) {
-				String[] busStop = stopDetails.get(i);
-				String stopOutput = "";
-
-				System.out.println("Stop details for stop : " + busStop[STOP_NAME_IDX]);
-
-				for (int j = 0; j < busStop.length; j++) {
-					stopOutput += (BUS_STOP_VARIABLE_NAMES[j] + ": " + (!busStop[j].replaceAll(" ", "").equals("") ? busStop[j] : "unknown") + ", ");
-				}
-				
-				System.out.println(stopOutput.substring(0, stopOutput.length()-2));
-				System.out.println();
+			String adjustedStopName = getAdjustedStopName(stopName, true);
+			List<String[]> stopDetails = TST.get(adjustedStopName);
+			
+			if (stopDetails == null || stopDetails.size() == 0) return null;
+			
+			String curStopName;
+			int i = 0;
+			while (i < stopDetails.size()) {
+				curStopName = stopDetails.get(i)[STOP_NAME_IDX];
+				if (!endingsMatch(curStopName)) stopDetails.remove(i);
+				else i++;
 			}
+			
+			return stopDetails;
 		}
-		return true;
 	}
 	
-    /*
+	/*
+	 * Outputs details to console about each bus stop matching the search query
+	 * @param stopName the name of the stop
+	 */
+	public void displayStopDetails (String stopName) {
+		
+		if (stopName.replaceAll(" ", "").equals("")) {
+			System.out.println("Inputted key must have length >= 1");
+		}
+		
+		else {
+			List<String[]> stopDetails = getStopDetails(stopName);
+		
+			if (stopDetails == null || stopDetails.size() == 0) {
+				System.out.println("No stops match this search criteria");
+			}
+		
+			else {
+				
+				for (int i = 0; i < stopDetails.size(); i++) {
+					String[] busStop = stopDetails.get(i);
+					String stopOutput = "";
+
+					System.out.println("Stop details for stop : " + busStop[STOP_NAME_IDX]);
+	
+					for (int j = 0; j < busStop.length; j++) {
+						stopOutput += (BUS_STOP_VARIABLE_NAMES[j] + ": " + (!busStop[j].replaceAll(" ", "").equals("") ? busStop[j] : "unknown") + ", ");
+					}
+					
+					System.out.println(stopOutput.substring(0, stopOutput.length()-2));
+					System.out.println();
+				}
+			}
+		}
+	}
+	
+	/*
 	 * Checks if the keywords in the a bus stop's name match the keywords of the search query
 	 * @param stopName the name of the stop
 	 * @return boolean of whether or not the keywords match
@@ -142,5 +156,5 @@ public class BusStopSearch {
 		
 		return true;
 	}
-
 }
+
