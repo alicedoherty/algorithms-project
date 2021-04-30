@@ -1,3 +1,11 @@
+/**
+ * Class BusStopSearch: Class to search TST for all possible bus stops.
+ *
+ * The constructor of this class builds a Ternary Search Tree based on input from a specified text file. 
+ * This class offers the methods to get and display information for all bus stops whose name matches the
+ * characters in the inputted search query
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -15,6 +23,11 @@ public class BusStopSearch {
 	TernarySearchTree<String[]> TST;
 	List<String> inputKeywords;
 	
+    /*
+	 * Constructs a TST based on the data in the file at the inputted filepath.
+	 * @param key fname the name of the file
+	 * @throws IllegalArgumentException if the inputted file is not found 
+	 */
 	public BusStopSearch(String fname) {
 		
 		TST = new TernarySearchTree<String[]>();
@@ -40,6 +53,12 @@ public class BusStopSearch {
 		}
 	}
 
+    /*
+	 * Adjusts the inputted string to remove or move certain keywords as necessary
+	 * @param stopName the name of the stop
+	 * @param isSearch is the returned string being used in a search or not
+	 * @return the string with the keywords in the appropriate place
+	 */
 	public String getAdjustedStopName (String stopName, boolean isSearch) {
 		String[] stopWords = stopName.split(" ");
 		inputKeywords = new ArrayList<String>();
@@ -57,6 +76,11 @@ public class BusStopSearch {
 		return stopName;
 	}
 	
+    /*
+	 * Finds the details for each bus stop which matches the search query
+	 * @param stopName the name of the stop
+	 * @return a list of string arrays containing data about each bus stop 
+	 */
 	public List<String[]> getStopDetails (String stopName) {
 		String adjustedStopName = getAdjustedStopName(stopName, true);
 		List<String[]> stopDetails = TST.get(adjustedStopName);
@@ -74,6 +98,10 @@ public class BusStopSearch {
 		return stopDetails;
 	}
 
+    /*
+	 * Outputs details to console about each bus stop matching the search query
+	 * @param stopName the name of the stop
+	 */
 	public boolean displayStopDetails (String stopName) {
 		List<String[]> stopDetails = getStopDetails(stopName);
 		
@@ -101,6 +129,11 @@ public class BusStopSearch {
 		return true;
 	}
 	
+    /*
+	 * Checks if the keywords in the a bus stop's name match the keywords of the search query
+	 * @param stopName the name of the stop
+	 * @return boolean of whether or not the keywords match
+	 */
 	public boolean endingsMatch (String stopName) {
 		String[] stopWords = stopName.split(" ");
 		for (int i = 0; i < inputKeywords.size(); i++) {
