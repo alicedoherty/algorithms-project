@@ -93,7 +93,7 @@ public class BusManagementSystem {
 	   }
 	   
 	   public static void callGetShortestPath() {
-		   Shortest_Path_Between_2_Stops.getShortestPath();
+		   ShortestPathBetween2Stops.getShortestPath();
 		   
 	   }
 
